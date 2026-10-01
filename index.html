@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Task Manager</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <div class="logo">
+                <div class="logo-icon">✓</div>
+                <h2>SmartTasks</h2>
+            </div>
+
+            <nav class="nav">
+                <button class="nav-btn active" data-filter="all">
+                    <span>▦</span>
+                    Dashboard
+                </button>
+
+                <button class="nav-btn" data-filter="all">
+                    <span>☷</span>
+                    All Tasks
+                </button>
+
+                <button class="nav-btn" data-filter="active">
+                    <span>○</span>
+                    Active
+                </button>
+
+                <button class="nav-btn" data-filter="completed">
+                    <span>✓</span>
+                    Completed
+                </button>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="profile">
+                    <div class="avatar">S</div>
+
+                    <div>
+                        <strong>Shaheer</strong>
+                        <small>Productivity Mode</small>
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+
+
+        <!-- Main Content -->
+        <main class="main">
+
+            <header class="topbar">
+
+                <div>
+                    <p class="welcome-small">Good evening, Shaheer 👋</p>
+                    <h1>Manage your tasks</h1>
+                    <p class="subtitle">
+                        Stay organized and get things done.
+                    </p>
+                </div>
+
+                <button id="themeBtn" class="theme-btn">
+                    🌙
+                </button>
+
+            </header>
+
+
+            <!-- Statistics -->
+            <section class="stats">
+
+                <div class="stat-card">
+                    <div class="stat-icon">📋</div>
+
+                    <div>
+                        <span>Total Tasks</span>
+                        <strong id="totalTasks">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">✓</div>
+
+                    <div>
+                        <span>Completed</span>
+                        <strong id="completedTasks">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">○</div>
+
+                    <div>
+                        <span>Remaining</span>
+                        <strong id="remainingTasks">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🔥</div>
+
+                    <div>
+                        <span>High Priority</span>
+                        <strong id="highTasks">0</strong>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- Task Controls -->
+            <section class="task-section">
+
+                <div class="task-header">
+
+                    <div>
+                        <h2>My Tasks</h2>
+                        <p>Manage your daily work.</p>
+                    </div>
+
+                    <button id="addTaskBtn" class="add-btn">
+                        + Add Task
+                    </button>
+
+                </div>
+
+
+                <div class="controls">
+
+                    <div class="search-box">
+                        <span>⌕</span>
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Search tasks..."
+                        >
+                    </div>
+
+                    <div class="filters">
+
+                        <button class="filter-btn active" data-filter="all">
+                            All
+                        </button>
+
+                        <button class="filter-btn" data-filter="active">
+                            Active
+                        </button>
+
+                        <button class="filter-btn" data-filter="completed">
+                            Completed
+                        </button>
+
+                        <button class="filter-btn" data-filter="high">
+                            High Priority
+                        </button>
+
+                    </div>
+
+                    <select id="sortSelect">
+
+                        <option value="newest">
+                            Newest
+                        </option>
+
+                        <option value="oldest">
+                            Oldest
+                        </option>
+
+                        <option value="priority">
+                            Priority
+                        </option>
+
+                        <option value="date">
+                            Due Date
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- Tasks -->
+                <div id="taskList" class="task-list"></div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- Add Task Modal -->
+
+    <div id="modal" class="modal hidden">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <div>
+                    <h2>Add New Task</h2>
+                    <p>Create a new task for yourself.</p>
+                </div>
+
+                <button id="closeModal" class="close-btn">
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="taskForm">
+
+                <label>
+                    Task Name
+
+                    <input
+                        type="text"
+                        id="taskTitle"
+                        placeholder="e.g. Practice JavaScript"
+                    >
+                </label>
+
+
+                <div class="form-row">
+
+                    <label>
+                        Category
+
+                        <select id="taskCategory">
+
+                            <option value="Study">
+                                Study
+                            </option>
+
+                            <option value="Coding">
+                                Coding
+                            </option>
+
+                            <option value="Personal">
+                                Personal
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </label>
+
+
+                    <label>
+                        Priority
+
+                        <select id="taskPriority">
+
+                            <option value="Low">
+                                Low
+                            </option>
+
+                            <option value="Medium">
+                                Medium
+                            </option>
+
+                            <option value="High">
+                                High
+                            </option>
+
+                        </select>
+
+                    </label>
+
+                </div>
+
+
+                <label>
+                    Due Date
+
+                    <input
+                        type="date"
+                        id="taskDate"
+                    >
+                </label>
+
+
+                <p id="formError" class="form-error"></p>
+
+
+                <div class="form-buttons">
+
+                    <button
+                        type="button"
+                        id="cancelBtn"
+                        class="cancel-btn"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="save-btn"
+                    >
+                        Add Task
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
